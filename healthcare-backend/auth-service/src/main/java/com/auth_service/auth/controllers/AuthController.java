@@ -5,9 +5,7 @@ import com.auth_service.auth.entities.User;
 import com.auth_service.auth.services.AuthService;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class AuthController {
@@ -28,5 +26,15 @@ public class AuthController {
     public ResponseEntity<?> registerUser(@RequestBody AuthenticationRequest authenticationRequest) {
         User registeredUser = authService.register(authenticationRequest);
         return ResponseEntity.ok(registeredUser);
+    }
+
+    @GetMapping("/doctor")
+    public ResponseEntity<?> doctorEndpoint() {
+        return ResponseEntity.ok("Welcome, Doctor!");
+    }
+
+    @GetMapping("/patient")
+    public ResponseEntity<?> patientEndpoint() {
+        return ResponseEntity.ok("Welcome, Patient!");
     }
 }

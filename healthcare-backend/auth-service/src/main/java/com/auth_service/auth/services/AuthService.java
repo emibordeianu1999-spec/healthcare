@@ -2,6 +2,7 @@ package com.auth_service.auth.services;
 
 import com.auth_service.auth.dtos.AuthenticationRequest;
 import com.auth_service.auth.dtos.AuthenticationResponse;
+import com.auth_service.auth.dtos.Role;
 import com.auth_service.auth.entities.User;
 import com.auth_service.auth.repositories.UserRepository;
 import com.auth_service.auth.utils.JwtUtil;
@@ -13,6 +14,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Collections;
 
 @Service
 public class AuthService {
@@ -53,6 +56,16 @@ public class AuthService {
         User newUser = new User();
         newUser.setUsername(authenticationRequest.getUsername());
         newUser.setPassword(passwordEncoder.encode(authenticationRequest.getPassword()));
+
+        Role assignedRole;
+        if (authenticationRequest.getRole() == Role.ROLE_DOCTOR) {
+            assignedRole = Role.ROLE_DOCTOR;
+        } else {
+            assignedRole = Role.ROLE_PATIENT; // Default to PATIENT
+        }
+
+        newUser.setRoles(Collections.singleton(assignedRole.name()));
+
         return userRepository.save(newUser);
     }
 }

@@ -1,6 +1,7 @@
 package com.auth_service.auth.controllers;
 
 import com.auth_service.auth.dtos.AuthenticationRequest;
+import com.auth_service.auth.dtos.RegisterRequest;
 import com.auth_service.auth.entities.User;
 import com.auth_service.auth.services.AuthService;
 
@@ -23,9 +24,15 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody AuthenticationRequest authenticationRequest) {
-        User registeredUser = authService.register(authenticationRequest);
+    public ResponseEntity<?> registerUser(@RequestBody RegisterRequest registerRequest) {
+        User registeredUser = authService.register(registerRequest);
         return ResponseEntity.ok(registeredUser);
+    }
+
+    @GetMapping("/verify-email")
+    public ResponseEntity<?> verifyEmail(@RequestParam("token") String token) {
+        authService.verifyEmail(token);
+        return ResponseEntity.ok("Email verified successfully.");
     }
 
     @GetMapping("/doctor")

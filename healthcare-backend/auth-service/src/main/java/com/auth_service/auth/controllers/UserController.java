@@ -1,9 +1,6 @@
 package com.auth_service.auth.controllers;
 
-import com.auth_service.auth.dtos.ChangePasswordRequest;
-import com.auth_service.auth.dtos.ForgotPasswordRequest;
-import com.auth_service.auth.dtos.ForgotUsernameRequest;
-import com.auth_service.auth.dtos.ResetPasswordRequest;
+import com.auth_service.auth.dtos.*;
 import com.auth_service.auth.services.AuthService;
 import com.auth_service.auth.services.UserService;
 import org.springframework.http.ResponseEntity;
